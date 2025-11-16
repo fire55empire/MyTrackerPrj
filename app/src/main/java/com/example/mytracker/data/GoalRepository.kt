@@ -98,6 +98,11 @@ class GoalRepository(private val context: Context) {
         return true
     }
     
+    suspend fun getGoalName(): String? {
+        val preferences = context.dataStore.data.first()
+        return preferences[goalNameKey]
+    }
+    
     suspend fun deleteGoal() {
         context.dataStore.edit { preferences ->
             preferences.remove(goalNameKey)
