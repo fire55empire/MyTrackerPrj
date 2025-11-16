@@ -39,6 +39,20 @@ android {
     buildFeatures {
         compose = true
     }
+    
+    lint {
+        // В CI будет установлено через переменную окружения
+        abortOnError = System.getenv("CI") == "true"
+        checkAllWarnings = true
+        warningsAsErrors = false
+        disable += setOf("MissingTranslation", "ExtraTranslation")
+        htmlReport = true
+        htmlOutput = file("${project.buildDir}/reports/lint-results.html")
+        xmlReport = true
+        xmlOutput = file("${project.buildDir}/reports/lint-results.xml")
+        // Не блокировать сборку, если файлы заблокированы
+        checkReleaseBuilds = false
+    }
 }
 
 dependencies {
